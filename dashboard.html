@@ -123,40 +123,49 @@
 </main>
 
 <script>
-  function loadUserData() {
+  // Проверка, залогинен ли пользователь
+  function checkAuth() {
+    const loggedIn = localStorage.getItem('loggedIn');
     const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
+    if (!loggedIn || !user) {
       alert('Будь ласка, увійдіть у свій акаунт.');
       window.location.href = 'login.html';
       return null;
     }
-    // Відобразити ім'я і email
-    document.getElementById('profile-username').textContent = user.username || 'Без імені';
-    document.getElementById('profile-email').textContent = user.email || 'Немає email';
-
-    // Відобразити аватар
-    if (user.avatar) {
-      document.getElementById('profile-avatar').src = user.avatar;
-    }
     return user;
   }
 
+  // Загрузка данных пользователя в профиль
+  function loadUserData() {
+    const user = checkAuth();
+    if (!user) return;
+
+    document.getElementById('profile-username').textContent = user.username || 'Без імені';
+    document.getElementById('profile-email').textContent = user.email || 'Немає email';
+
+    if (user.avatar) {
+      document.getElementById('profile-avatar').src = user.avatar;
+    }
+  }
+
+  // Сохранение данных пользователя
   function saveUserData(user) {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  // Зміна аватару
+  // Кнопка смены аватара
   document.getElementById('change-avatar-btn').addEventListener('click', () => {
     document.getElementById('avatar-input').click();
   });
 
+  // Обработка выбора файла аватара
   document.getElementById('avatar-input').addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = function(e) {
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = checkAuth();
       if (!user) return alert('Помилка: користувач не знайдений.');
 
       user.avatar = e.target.result; // base64 картинка
@@ -167,19 +176,16 @@
     reader.readAsDataURL(file);
   });
 
-  // Показати/сховати форму зміни пароля
+  // Показ/скрытие формы смены пароля
   document.getElementById('change-password-btn').addEventListener('click', () => {
     const section = document.getElementById('password-change-section');
-    if (section.style.display === 'none' || section.style.display === '') {
-      section.style.display = 'block';
-    } else {
-      section.style.display = 'none';
-    }
+    section.style.display = (section.style.display === 'block') ? 'none' : 'block';
   });
 
-  // Обробка зміни пароля
+  // Обработка формы смены пароля
   document.getElementById('password-form').addEventListener('submit', (e) => {
     e.preventDefault();
+
     const oldPass = document.getElementById('old-password').value.trim();
     const newPass = document.getElementById('new-password').value.trim();
     const confirmPass = document.getElementById('confirm-password').value.trim();
@@ -188,16 +194,14 @@
       alert('Будь ласка, заповніть всі поля.');
       return;
     }
+
     if (newPass !== confirmPass) {
       alert('Новий пароль і підтвердження не співпадають.');
       return;
     }
 
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
-      alert('Користувач не знайдений.');
-      return;
-    }
+    const user = checkAuth();
+    if (!user) return alert('Користувач не знайдений.');
 
     if (oldPass !== user.password) {
       alert('Старий пароль невірний.');
@@ -205,22 +209,19 @@
     }
 
     user.password = newPass;
-    localStorage.setItem('user', JSON.stringify(user));
+    saveUserData(user);
     alert('Пароль успішно змінено!');
     e.target.reset();
     document.getElementById('password-change-section').style.display = 'none';
   });
 
-  // Вихід з акаунту
+  // Кнопка выхода из аккаунта
   document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('loggedIn');
-    localStorage.removeItem('user');
     window.location.href = 'login.html';
   });
 
-  window.onload = () => {
-    loadUserData();
-  };
+  window.onload = loadUserData;
 </script>
 
 </body>

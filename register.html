@@ -1,179 +1,147 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RayziShop — Реєстрація</title>
-<style>
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-  }
-  body {
-    background: #121212;
-    color: #eee;
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-  }
-  header {
-    background: #1f1f1f;
-    padding: 20px 40px;
-    display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-  }
-  .logo {
-    color: #4caf50;
-    font-weight: 900;
-    font-size: 28px;
-    text-decoration: none;
-  }
-  nav a {
-    color: #eee;
-    margin-left: 25px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-  }
-  nav a:hover {
-    color: #4caf50;
-  }
-  select.language {
-    background: #2a2a2a;
-    color: #eee;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  main {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 20px;
-  }
-  form {
-    background: #222;
-    padding: 40px 60px;
-    border-radius: 15px;
-    box-shadow: 0 0 25px #4caf50cc;
-    max-width: 400px;
-    width: 100%;
-    color: #eee;
-  }
-  h2 {
-    font-weight: 900;
-    font-size: 2.4rem;
-    margin-bottom: 30px;
-    color: #4caf50;
-    text-align: center;
-  }
-  label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-  }
-  input {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    border: 2px solid #4caf50;
-    border-radius: 10px;
-    font-size: 1rem;
-    background: #121212;
-    color: #eee;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-  input:focus {
-    border-color: #81c784;
-  }
-  button {
-    width: 100%;
-    padding: 14px;
-    background: #4caf50;
-    color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px #4caf50cc;
-    transition: background 0.3s ease;
-  }
-  button:hover {
-    background: #388e3c;
-  }
-  .have-account {
-    margin-top: 18px;
-    font-size: 0.9rem;
-    color: #ccc;
-    text-align: center;
-  }
-  .have-account a {
-    color: #4caf50;
-    text-decoration: none;
-    font-weight: 700;
-  }
-  .have-account a:hover {
-    text-decoration: underline;
-  }
-  footer {
-    text-align: center;
-    padding: 15px 10px;
-    background: #1f1f1f;
-    font-size: 14px;
-    color: #666;
-    box-shadow: inset 0 1px 0 #2a2a2a;
-  }
-</style>
-<script>
-  function changeLanguage(lang) {
-    const pages = {
-      'ru': 'register.html',
-      'uk': 'register_uk.html',
-      'en': 'register_en.html'
-    };
-    window.location.href = pages[lang];
-  }
-
-  function registerUser(event) {
-    event.preventDefault();
-
-    const username = document.getElementById('username').value.trim();
-    const email = document.getElementById('email').value.trim().toLowerCase();
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (!username || !email || !password || !confirmPassword) {
-      alert('Будь ласка, заповніть усі поля.');
-      return;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Реєстрація — RayziShop</title>
+  <style>
+    /* Твой стиль из логина (копия для консистенции) */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
     }
-
-    if (password !== confirmPassword) {
-      alert('Паролі не співпадають.');
-      return;
+    body {
+      background: #121212;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
-    let users = JSON.parse(localStorage.getItem('users') || '[]');
-
-    if (users.find(u => u.email === email)) {
-      alert('Користувач з таким email вже зареєстрований.');
-      return;
+    header {
+      background: #1f1f1f;
+      padding: 20px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
+    .logo {
+      color: #4caf50;
+      font-weight: 900;
+      font-size: 28px;
+      text-decoration: none;
+    }
+    nav a {
+      color: #eee;
+      margin-left: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #4caf50;
+    }
+    .form-container {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+    }
+    form {
+      background: #222;
+      padding: 40px 60px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #4caf50cc;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #4caf50;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background: #333;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .button {
+      padding: 12px;
+      width: 100%;
+      background-color: #4caf50;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+    p {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    p a {
+      color: #4caf50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 15px 10px;
+      background: #1f1f1f;
+      font-size: 14px;
+      color: #666;
+      box-shadow: inset 0 1px 0 #2a2a2a;
+    }
+  </style>
+  <script>
+    function registerUser(event) {
+      event.preventDefault();
 
-    users.push({ username, email, password });
-    localStorage.setItem('users', JSON.stringify(users));
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirm-password').value.trim();
 
-    localStorage.setItem('loggedIn', 'true');
-    localStorage.setItem('username', username);
-    localStorage.setItem('email', email);
+      if (!username || !email || !password || !confirmPassword) {
+        alert('Будь ласка, заповніть всі поля');
+        return;
+      }
 
-    alert('Реєстрація пройшла успішно!');
-    window.location.href = 'index.html';
-  }
-</script>
+      if (password !== confirmPassword) {
+        alert('Паролі не співпадають');
+        return;
+      }
+
+      // Можно добавить дополнительные проверки email/username
+
+      const existingUser = JSON.parse(localStorage.getItem('user'));
+      if (existingUser && existingUser.username === username) {
+        alert('Користувач з таким ім’ям вже існує');
+        return;
+      }
+
+      const user = {
+        username,
+        email,
+        password,
+        avatar: null
+      };
+
+      localStorage.setItem('user', JSON.stringify(user));
+      alert('Реєстрація пройшла успішно! Тепер увійдіть.');
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body>
 <header>
@@ -182,29 +150,24 @@
     <a href="index.html">Головна</a>
     <a href="home.html">Товари</a>
     <a href="register.html">Реєстрація</a>
-    <a href="#" onclick="if(!localStorage.getItem('loggedIn')){alert('Будь ласка, зареєструйтесь або увійдіть.'); window.location.href='register.html';}else{window.location.href='dashboard.html';}">Профіль</a>
+    <a href="login.html">Вхід</a>
   </nav>
-  <select class="language" onchange="changeLanguage(this.value)">
-    <option value="ru">Русский</option>
-    <option value="uk" selected>Українська</option>
-    <option value="en">English</option>
-  </select>
 </header>
-<main>
+
+<main class="form-container">
   <form onsubmit="registerUser(event)">
-    <h2>Реєстрація</h2>
-    <label for="username">Ім'я користувача</label>
-    <input id="username" type="text" placeholder="Введіть ім’я" required />
-    <label for="email">Email</label>
-    <input id="email" type="email" placeholder="Введіть email" required />
-    <label for="password">Пароль</label>
-    <input id="password" type="password" placeholder="Введіть пароль" required />
-    <label for="confirmPassword">Повторіть пароль</label>
-    <input id="confirmPassword" type="password" placeholder="Повторіть пароль" required />
-    <button type="submit">Зареєструватися</button>
-    <p class="have-account">Вже є акаунт? <a href="login.html">Увійти</a></p>
+    <h1>Реєстрація</h1>
+    <input type="text" id="username" placeholder="Ім’я користувача" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Пароль" required />
+    <input type="password" id="confirm-password" placeholder="Підтвердіть пароль" required />
+    <button type="submit" class="button">Зареєструватися</button>
+    <p>Вже маєте акаунт? <a href="login.html">Увійти</a></p>
   </form>
 </main>
-<footer>© 2025 RayziShop. Усі права захищені.</footer>
+
+<footer>
+  © 2025 RayziShop. Усі права захищені.
+</footer>
 </body>
 </html>
