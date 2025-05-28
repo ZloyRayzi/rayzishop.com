@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RayziShop — Товары</title>
+<title>RayziShop — Товари</title>
 <style>
   body {
     background: #121212;
@@ -84,11 +84,11 @@
 </style>
 <script>
   const products = [
-    {id:1, name:'Смартфон Rayzi X1', description:'Мощный смартфон с отличной камерой.', priceUAH:12000, image:'https://via.placeholder.com/220x140?text=Rayzi+X1'},
-    {id:2, name:'Наушники RayziSound', description:'Беспроводные наушники с шумоподавлением.', priceUAH:3500, image:'https://via.placeholder.com/220x140?text=RayziSound'},
-    {id:3, name:'Умные часы RayziWatch', description:'Следите за здоровьем и уведомлениями.', priceUAH:5600, image:'https://via.placeholder.com/220x140?text=RayziWatch'},
-    {id:4, name:'Портативный аккумулятор RayziPower', description:'Быстрая зарядка в любом месте.', priceUAH:1500, image:'https://via.placeholder.com/220x140?text=RayziPower'},
-    {id:5, name:'Bluetooth-колонка RayziBoom', description:'Яркий звук и стильный дизайн.', priceUAH:2300, image:'https://via.placeholder.com/220x140?text=RayziBoom'},
+    {id:1, name:'Смартфон Rayzi X1', description:'Потужний смартфон з чудовою камерою.', priceUAH:12000, image:'https://via.placeholder.com/220x140?text=Rayzi+X1'},
+    {id:2, name:'Навушники RayziSound', description:'Бездротові навушники з шумозаглушенням.', priceUAH:3500, image:'https://via.placeholder.com/220x140?text=RayziSound'},
+    {id:3, name:'Розумний годинник RayziWatch', description:'Слідкуйте за здоров’ям та повідомленнями.', priceUAH:5600, image:'https://via.placeholder.com/220x140?text=RayziWatch'},
+    {id:4, name:'Павербанк RayziPower', description:'Швидка зарядка будь-де.', priceUAH:1500, image:'https://via.placeholder.com/220x140?text=RayziPower'},
+    {id:5, name:'Bluetooth-колонка RayziBoom', description:'Якісний звук та стильний дизайн.', priceUAH:2300, image:'https://via.placeholder.com/220x140?text=RayziBoom'},
   ];
 
   function renderProducts(filter='') {
@@ -101,7 +101,7 @@
     const filtered = products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
 
     if(filtered.length === 0) {
-      list.innerHTML = '<p>Товары не найдены.</p>';
+      list.innerHTML = '<p>Товари не знайдено.</p>';
       return;
     }
 
@@ -131,16 +131,15 @@
 <header>
   <a href="index.html" class="logo">RayziShop</a>
   <nav>
-    <a href="index.html">Главная</a>
-    <a href="home.html">Товары</a>
-    <a href="register.html">Регистрация</a>
-    <a href="#" onclick="alert('Для просмотра профиля нужно войти!');">Профиль</a>
+    <a href="index.html">Головна</a>
+    <a href="home.html">Товари</a>
+    <a href="register.html">Реєстрація</a>
+    <a href="#" onclick="alert('Для перегляду профілю потрібно увійти!');">Профіль</a>
   </nav>
 </header>
 <main>
-  <input type="text" id="search" placeholder="Поиск товаров..." autocomplete="off" />
+  <input type="text" id="search" placeholder="Пошук товарів..." autocomplete="off" />
   <div class="product-list"></div>
 </main>
 </body>
 </html>
-

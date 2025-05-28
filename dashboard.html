@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RayziShop — Личный кабинет</title>
+<title>RayziShop — Особистий кабінет</title>
 <style>
   body {
     background: #121212;
@@ -39,27 +39,27 @@
   h1 {
     color: #4caf50;
   }
-  form {
-    background: #222;
-    padding: 20px;
-    border-radius: 15px;
+  .profile-info {
+    display: flex;
+    align-items: center;
+    gap: 25px;
     margin-bottom: 30px;
-    box-shadow: 0 0 15px #4caf50cc;
   }
-  form input, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 8px;
-    border: none;
-    background: #333;
-    color: #eee;
-    font-size: 1rem;
-    resize: vertical;
+  .profile-info img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4caf50;
   }
-  form button {
-    margin-top: 15px;
-    padding: 12px 20px;
+  .profile-details {
+    font-size: 1.2rem;
+  }
+  .profile-details p {
+    margin: 8px 0;
+  }
+  button {
+    padding: 12px 25px;
     background: #4caf50;
     border: none;
     border-radius: 10px;
@@ -67,186 +67,161 @@
     font-weight: 700;
     cursor: pointer;
     transition: background 0.3s ease;
+    margin-right: 15px;
   }
-  form button:hover {
+  button:hover {
     background: #3a9c3a;
   }
-  .user-products {
-    margin-top: 20px;
+  #avatar-input {
+    display: none;
   }
-  .product-item {
-    background: #222;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    box-shadow: 0 0 10px #4caf50aa;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  .product-item img {
-    width: 100px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  .product-details {
-    flex-grow: 1;
-  }
-  .product-details h3 {
-    margin: 0 0 5px 0;
-    color: #4caf50;
-  }
-  .product-details p {
-    margin: 0 0 5px 0;
-    color: #ccc;
-  }
-  .product-details .price {
-    font-weight: 700;
-    color: #a0d468;
-  }
-  .product-item button {
-    background: #e74c3c;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    font-weight: 700;
-    transition: background 0.3s ease;
-  }
-  .product-item button:hover {
-    background: #c0392b;
+  .buttons-row {
+    margin-bottom: 40px;
   }
 </style>
-<script>
-  // Проверка авторизации
-  function checkAuth() {
-    if (!localStorage.getItem('loggedIn')) {
-      alert('Пожалуйста, войдите в аккаунт.');
-      window.location.href = 'register.html';
-    }
-  }
-
-  // Загрузка и показ товаров пользователя
-  function loadUserProducts() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) return;
-
-    const allProducts = JSON.parse(localStorage.getItem('userProducts') || '{}');
-    const userProducts = allProducts[user.username] || [];
-
-    const container = document.querySelector('.user-products');
-    container.innerHTML = '';
-
-    if (userProducts.length === 0) {
-      container.innerHTML = '<p>Вы еще не добавили товаров.</p>';
-      return;
-    }
-
-    userProducts.forEach((p, index) => {
-      const div = document.createElement('div');
-      div.className = 'product-item';
-      div.innerHTML = `
-        <img src="${p.image}" alt="${p.name}">
-        <div class="product-details">
-          <h3>${p.name}</h3>
-          <p>${p.description}</p>
-          <div class="price">${p.price} ${p.currency || '₴'}</div>
-        </div>
-        <button onclick="deleteProduct(${index})">Удалить</button>
-      `;
-      container.appendChild(div);
-    });
-  }
-
-  // Добавление товара
-  function addProduct(e) {
-    e.preventDefault();
-
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) return alert('Ошибка: пользователь не найден.');
-
-    const name = document.getElementById('prod-name').value.trim();
-    const description = document.getElementById('prod-desc').value.trim();
-    const price = parseFloat(document.getElementById('prod-price').value);
-    const currency = document.getElementById('prod-currency').value;
-    const imageUrl = document.getElementById('prod-image').value.trim() || 'https://via.placeholder.com/100x70?text=No+Image';
-
-    if (!name || !description || isNaN(price)) {
-      alert('Пожалуйста, заполните все поля корректно.');
-      return;
-    }
-
-    const allProducts = JSON.parse(localStorage.getItem('userProducts') || '{}');
-    const userProducts = allProducts[user.username] || [];
-
-    userProducts.push({ name, description, price: price.toFixed(2), currency, image: imageUrl });
-
-    allProducts[user.username] = userProducts;
-    localStorage.setItem('userProducts', JSON.stringify(allProducts));
-
-    document.getElementById('add-product-form').reset();
-    loadUserProducts();
-    alert('Товар успешно добавлен!');
-  }
-
-  // Удаление товара
-  function deleteProduct(index) {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) return;
-
-    const allProducts = JSON.parse(localStorage.getItem('userProducts') || '{}');
-    const userProducts = allProducts[user.username] || [];
-
-    userProducts.splice(index, 1);
-    allProducts[user.username] = userProducts;
-    localStorage.setItem('userProducts', JSON.stringify(allProducts));
-
-    loadUserProducts();
-  }
-
-  window.onload = () => {
-    checkAuth();
-    loadUserProducts();
-
-    document.getElementById('add-product-form').addEventListener('submit', addProduct);
-  }
-</script>
 </head>
 <body>
+
 <header>
   <a href="index.html" class="logo">RayziShop</a>
   <nav>
-    <a href="index.html">Главная</a>
-    <a href="home.html">Товары</a>
-    <a href="register.html">Регистрация</a>
-    <a href="#" onclick="checkAuth();">Профиль</a>
+    <a href="index.html">Головна</a>
+    <a href="home.html">Товари</a>
+    <a href="register.html">Реєстрація</a>
+    <a href="#" onclick="alert('Ви вже в особистому кабінеті');">Профіль</a>
   </nav>
 </header>
 
 <main>
-  <h1>Личный кабинет — Ваши товары</h1>
+  <h1>Особистий кабінет</h1>
 
-  <form id="add-product-form">
-    <h2>Добавить новый товар</h2>
-    <input type="text" id="prod-name" placeholder="Название товара" required />
-    <textarea id="prod-desc" placeholder="Описание товара" rows="3" required></textarea>
-    <input type="number" id="prod-price" placeholder="Цена" min="0" step="0.01" required />
-    <select id="prod-currency" required>
-      <option value="₴">Гривны (₴)</option>
-      <option value="$">Доллары ($)</option>
-      <option value="€">Евро (€)</option>
-    </select>
-    <input type="url" id="prod-image" placeholder="URL картинки (необязательно)" />
-    <button type="submit">Добавить товар</button>
-  </form>
+  <div class="profile-info">
+    <img id="profile-avatar" src="https://i.pravatar.cc/120" alt="Аватар профілю" />
+    <div class="profile-details">
+      <p><strong>Ім'я користувача:</strong> <span id="profile-username"></span></p>
+      <p><strong>Email:</strong> <span id="profile-email"></span></p>
+    </div>
+  </div>
 
-  <section class="user-products">
-    <!-- Здесь будут товары пользователя -->
-  </section>
+  <div class="buttons-row">
+    <button id="change-avatar-btn">Змінити фото</button>
+    <button id="change-password-btn">Змінити пароль</button>
+    <button id="logout-btn" style="background:#e74c3c; margin-left: auto;">Вийти</button>
+  </div>
+
+  <input type="file" id="avatar-input" accept="image/*" />
+
+  <div id="password-change-section" style="display:none;">
+    <h2>Зміна пароля</h2>
+    <form id="password-form">
+      <input type="password" id="old-password" placeholder="Старий пароль" required />
+      <input type="password" id="new-password" placeholder="Новий пароль" required />
+      <input type="password" id="confirm-password" placeholder="Підтвердіть новий пароль" required />
+      <button type="submit">Зберегти пароль</button>
+    </form>
+  </div>
 </main>
+
+<script>
+  function loadUserData() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      alert('Будь ласка, увійдіть у свій акаунт.');
+      window.location.href = 'login.html';
+      return null;
+    }
+    // Відобразити ім'я і email
+    document.getElementById('profile-username').textContent = user.username || 'Без імені';
+    document.getElementById('profile-email').textContent = user.email || 'Немає email';
+
+    // Відобразити аватар
+    if (user.avatar) {
+      document.getElementById('profile-avatar').src = user.avatar;
+    }
+    return user;
+  }
+
+  function saveUserData(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  // Зміна аватару
+  document.getElementById('change-avatar-btn').addEventListener('click', () => {
+    document.getElementById('avatar-input').click();
+  });
+
+  document.getElementById('avatar-input').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return alert('Помилка: користувач не знайдений.');
+
+      user.avatar = e.target.result; // base64 картинка
+      saveUserData(user);
+      document.getElementById('profile-avatar').src = user.avatar;
+      alert('Аватар успішно змінено!');
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Показати/сховати форму зміни пароля
+  document.getElementById('change-password-btn').addEventListener('click', () => {
+    const section = document.getElementById('password-change-section');
+    if (section.style.display === 'none' || section.style.display === '') {
+      section.style.display = 'block';
+    } else {
+      section.style.display = 'none';
+    }
+  });
+
+  // Обробка зміни пароля
+  document.getElementById('password-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const oldPass = document.getElementById('old-password').value.trim();
+    const newPass = document.getElementById('new-password').value.trim();
+    const confirmPass = document.getElementById('confirm-password').value.trim();
+
+    if (!oldPass || !newPass || !confirmPass) {
+      alert('Будь ласка, заповніть всі поля.');
+      return;
+    }
+    if (newPass !== confirmPass) {
+      alert('Новий пароль і підтвердження не співпадають.');
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      alert('Користувач не знайдений.');
+      return;
+    }
+
+    if (oldPass !== user.password) {
+      alert('Старий пароль невірний.');
+      return;
+    }
+
+    user.password = newPass;
+    localStorage.setItem('user', JSON.stringify(user));
+    alert('Пароль успішно змінено!');
+    e.target.reset();
+    document.getElementById('password-change-section').style.display = 'none';
+  });
+
+  // Вихід з акаунту
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('user');
+    window.location.href = 'login.html';
+  });
+
+  window.onload = () => {
+    loadUserData();
+  };
+</script>
+
 </body>
 </html>
-
-

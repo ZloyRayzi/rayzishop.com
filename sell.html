@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Выставить товар — RayziShop</title>
+  <title>Розмістити товар — RayziShop</title>
   <style>
     body {
       background: #121212;
@@ -50,26 +50,26 @@
 </head>
 <body>
   <div class="form-container">
-    <h2>Выставить товар</h2>
+    <h2>Розмістити товар</h2>
     <form id="sellForm" onsubmit="handleSubmit(event)">
-      <input type="text" placeholder="Название товара" required />
-      <textarea placeholder="Описание товара" required></textarea>
-      <input type="number" placeholder="Цена" required />
+      <input type="text" placeholder="Назва товару" required />
+      <textarea placeholder="Опис товару" required></textarea>
+      <input type="number" placeholder="Ціна" required />
       <select required>
-        <option value="">Выберите категорию</option>
-        <option value="electronics">Электроника</option>
-        <option value="clothing">Одежда</option>
-        <option value="digital">Цифровые товары</option>
+        <option value="">Оберіть категорію</option>
+        <option value="electronics">Електроніка</option>
+        <option value="clothing">Одяг</option>
+        <option value="digital">Цифрові товари</option>
       </select>
-      <button type="submit">Выставить</button>
+      <button type="submit">Розмістити</button>
     </form>
   </div>
 
   <script>
     function handleSubmit(e) {
       e.preventDefault();
-      alert('Товар успешно выставлен!');
-      window.location.href = 'home.html'; // Перенаправление на страницу товаров
+      alert('Товар успішно розміщено!');
+      window.location.href = 'home.html'; // Перенаправлення на сторінку товарів
     }
   </script>
 </body>

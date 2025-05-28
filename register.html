@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RayziShop — Регистрация</title>
+<title>RayziShop — Реєстрація</title>
 <style>
   * {
     margin: 0; padding: 0; box-sizing: border-box;
@@ -147,19 +147,19 @@
     const confirmPassword = document.getElementById('confirmPassword').value;
 
     if (!username || !email || !password || !confirmPassword) {
-      alert('Пожалуйста, заполните все поля.');
+      alert('Будь ласка, заповніть усі поля.');
       return;
     }
 
     if (password !== confirmPassword) {
-      alert('Пароли не совпадают.');
+      alert('Паролі не співпадають.');
       return;
     }
 
     let users = JSON.parse(localStorage.getItem('users') || '[]');
 
     if (users.find(u => u.email === email)) {
-      alert('Пользователь с таким email уже зарегистрирован.');
+      alert('Користувач з таким email вже зареєстрований.');
       return;
     }
 
@@ -170,7 +170,7 @@
     localStorage.setItem('username', username);
     localStorage.setItem('email', email);
 
-    alert('Регистрация прошла успешно!');
+    alert('Реєстрація пройшла успішно!');
     window.location.href = 'index.html';
   }
 </script>
@@ -179,36 +179,32 @@
 <header>
   <a href="index.html" class="logo">RayziShop</a>
   <nav>
-    <a href="index.html">Главная</a>
-    <a href="home.html">Товары</a>
-    <a href="register.html">Регистрация</a>
-    <a href="#" onclick="if(!localStorage.getItem('loggedIn')){alert('Пожалуйста, зарегистрируйтесь или войдите.'); window.location.href='register.html';}else{window.location.href='dashboard.html';}">Профиль</a>
+    <a href="index.html">Головна</a>
+    <a href="home.html">Товари</a>
+    <a href="register.html">Реєстрація</a>
+    <a href="#" onclick="if(!localStorage.getItem('loggedIn')){alert('Будь ласка, зареєструйтесь або увійдіть.'); window.location.href='register.html';}else{window.location.href='dashboard.html';}">Профіль</a>
   </nav>
   <select class="language" onchange="changeLanguage(this.value)">
-    <option value="ru" selected>Русский</option>
-    <option value="uk">Українська</option>
+    <option value="ru">Русский</option>
+    <option value="uk" selected>Українська</option>
     <option value="en">English</option>
   </select>
 </header>
 <main>
   <form onsubmit="registerUser(event)">
-    <h2>Регистрация</h2>
-    <label for="username">Имя пользователя</label>
-    <input id="username" type="text" placeholder="Введите имя" required />
+    <h2>Реєстрація</h2>
+    <label for="username">Ім'я користувача</label>
+    <input id="username" type="text" placeholder="Введіть ім’я" required />
     <label for="email">Email</label>
-    <input id="email" type="email" placeholder="Введите email" required />
+    <input id="email" type="email" placeholder="Введіть email" required />
     <label for="password">Пароль</label>
-    <input id="password" type="password" placeholder="Введите пароль" required />
-    <label for="confirmPassword">Повторите пароль</label>
-    <input id="confirmPassword" type="password" placeholder="Повторите пароль" required />
-    <button type="submit">Зарегистрироваться</button>
-    <p class="have-account">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+    <input id="password" type="password" placeholder="Введіть пароль" required />
+    <label for="confirmPassword">Повторіть пароль</label>
+    <input id="confirmPassword" type="password" placeholder="Повторіть пароль" required />
+    <button type="submit">Зареєструватися</button>
+    <p class="have-account">Вже є акаунт? <a href="login.html">Увійти</a></p>
   </form>
 </main>
-<footer>© 2025 RayziShop. Все права защищены.</footer>
+<footer>© 2025 RayziShop. Усі права захищені.</footer>
 </body>
 </html>
-
-
-
-
