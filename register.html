@@ -1,66 +1,170 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Регистрация | RayziShop</title>
-<style>
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f7fa;
-    color: #333;
-  }
-  header {
-    background: #2a9d8f;
-    color: white;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  header h1 {
-    margin: 0;
-    font-weight: 700;
-    font-size: 28px;
-  }
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.15);
-    transition: background-color 0.3s ease;
-  }
-  nav a:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-  select#langSelect {
-    padding: 7px 12px;
-    border-radius: 6px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RayziShop — Регистрация</title>
+  <style>
+    /* общий стиль */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      color: #2d3436;
+      background: linear-gradient(270deg, #74ebd5, #acb6e5, #f6d365, #fda085);
+      background-size: 800% 800%;
+      animation: waveAnim 30s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    @keyframes waveAnim {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
+    }
+    .container {
+      background: rgba(255,255,255,0.25);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 25px;
+      color: #6c5ce7;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 12px 0;
+      border-radius: 10px;
+      border: 1px solid #dfe6e9;
+      font-size: 16px;
+      outline: none;
+      transition: 0.3s border-color;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+      border-color: #6c5ce7;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      border: none;
+      background-color: #6c5ce7;
+      color: white;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #341f97;
+    }
+    .login-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #636e72;
+    }
+    .login-link a {
+      color: #0984e3;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    function changeLanguage(lang) {
+      const pages = {
+        ru: 'register.html',
+        uk: 'register_uk.html',
+        en: 'register_en.html'
+      };
+      window.location.href = pages[lang];
+    }
+    function registerUser() {
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const passwordConfirm = document.getElementById('passwordConfirm').value.trim();
 
-  main {
-    max-width: 500px;
-    margin: 40px auto;
-    background: white;
-    padding: 40px 50px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
-  }
-  main h2 {
-    font-size: 32px;
+      if (!email || !username || !password || !passwordConfirm) {
+        alert('Пожалуйста, заполните все поля');
+        return false;
+      }
+      if (password !== passwordConfirm) {
+        alert('Пароли не совпадают');
+        return false;
+      }
+      // Простейшая проверка email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        alert('Введите корректный email');
+        return false;
+      }
+
+      // Сохраняем пользователя (имитация)
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userName', username);
+      localStorage.setItem('userPassword', password);
+      localStorage.setItem('loggedIn', 'true');
+
+      alert('Регистрация успешна!');
+      window.location.href = 'dashboard.html';
+      return false;
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">RayziShop</a>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="home.html">Товары</a>
+      <a href="register.html">Регистрация</a>
+      <a href="#" onclick="checkAuth()">Профиль</a>
+    </nav>
+    <select class="language" onchange="changeLanguage(this.value)">
+      <option value="ru" selected>Русский</option>
+      <option value="uk">Українська</option>
+      <option value="en">English</option>
+    </select>
+  </header>
+  <main>
+    <div class="container">
+      <h1>Регистрация</h1>
+      <form onsubmit="return registerUser()">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="text" id="username" placeholder="Имя пользователя" required />
+        <input type="password" id="password" placeholder="Пароль" required />
+        <input type="password" id="passwordConfirm" placeholder="Подтвердите пароль" required />
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+      <div class="login-link">
+        Уже есть аккаунт? <a href="login.html">Войти</a>
+      </div>
+    </div>
+  </main>
+  <footer>
+    © 2025 RayziShop. Все права защищены.
+  </footer>
+  <script>
+    function checkAuth() {
+      const loggedIn = localStorage.getItem('loggedIn');
+      if (!loggedIn) {
+        alert('Пожалуйста, сначала зарегистрируйтесь или войдите.');
+        window.location.href = 'register.html';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -3,52 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Личный кабинет | RayziShop</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>RayziShop — Профиль</title>
+  <style>
+    /* тот же стиль */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      color: #2d3436;
+      background: linear-gradient(270deg, #74ebd5, #acb6e5, #f6d365, #fda085);
+      background-size: 800% 800%;
+      animation: waveAnim 30s ease infinite;
+    }
+    @keyframes waveAnim {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
+    }
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px; background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 10;
+    }
+    .logo {
+      font-size: 28px; font-weight: bold; color: #6c5ce7; text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .logo:hover { color: #341f97; }
+    nav a {
+      margin-left: 20px; color: #2d3436; text-decoration: none; font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    nav a:hover { color: #00cec9; }
+    select.language {
+      margin-left: 20px; padding: 5px 10px; border-radius: 6px; border: 1px solid #dfe6e9;
+      background: white;
+    }
+    main {
+      padding: 80px 20px; text-align: center;
+    }
+    .section {
+      max-width: 900px; margin: 0 auto;
+      background: rgba(255,255,255,0.2); padding: 40px; border-radius: 16px;
+      backdrop-filter: blur(8px);
+    }
+    footer {
+      margin-top: 80px; text-align: center; padding: 20px;
+      font-size: 14px; color: #b2bec3;
+    }
+    .balance {
+      font-size: 24px;
+      margin: 20px 0;
+      color: #0984e3;
+    }
+  </style>
+  <script>
+    function changeLanguage(lang) {
+      const pages = {
+        ru: 'dashboard.html',
+        uk: 'dashboard_uk.html',
+        en: 'dashboard_en.html'
+      };
+      window.location.href = pages[lang];
+    }
+    function checkAuth() {
+      const loggedIn = localStorage.getItem('loggedIn');
+      if (!loggedIn) {
+        alert('Пожалуйста, сначала зарегистрируйтесь или войдите.');
+        window.location.href = 'register.html';
+      }
+    }
+    function loadUserData() {
+      if (!localStorage.getItem('loggedIn')) {
+        alert('Пожалуйста, сначала зарегистрируйтесь или войдите.');
+        window.location.href = 'register.html';
+        return;
+      }
+      const username = localStorage.getItem('userName') || 'Пользователь';
+      const balance = localStorage.getItem('balance') || '0.00';
+      document.getElementById('username').textContent = username;
+      document.getElementById('balance').textContent = balance + ' ₽';
+    }
+  </script>
 </head>
-<body class="bg-gray-100 text-gray-900">
-
-  <header class="bg-white shadow p-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold">RayziShop</h1>
-    <nav class="flex items-center space-x-4">
-      <a href="home.html" class="text-blue-600 hover:underline">Товары</a>
-      <a href="index.html" class="text-blue-600 hover:underline">Выход</a>
-      
-      <!-- Селектор языка -->
-      <div>
-        <select id="language-select" class="border rounded px-2 py-1 cursor-pointer">
-          <option value="ru" selected>Русский</option>
-          <option value="uk">Українська</option>
-          <option value="en">English</option>
-        </select>
-      </div>
+<body onload="loadUserData()">
+  <header>
+    <a href="index.html" class="logo">RayziShop</a>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="home.html">Товары</a>
+      <a href="register.html">Регистрация</a>
+      <a href="#" onclick="checkAuth()">Профиль</a>
     </nav>
+    <select class="language" onchange="changeLanguage(this.value)">
+      <option value="ru" selected>Русский</option>
+      <option value="uk">Українська</option>
+      <option value="en">English</option>
+    </select>
   </header>
-
-  <main class="max-w-4xl mx-auto p-6">
-    <h2 class="text-2xl font-bold mb-4">Личный кабинет</h2>
-
-    <!-- Баланс -->
-    <div class="bg-white p-4 rounded shadow mb-6">
-      <h3 class="text-lg font-semibold mb-2">Ваш баланс</h3>
-      <p class="text-2xl text-green-600 font-bold">1 500₽</p>
-    </div>
-
-    <!-- Пример блока заказов -->
-    <div class="bg-white p-4 rounded shadow">
-      <h3 class="text-lg font-semibold mb-2">Ваши заказы</h3>
-      <ul class="space-y-2">
-        <li class="border-b pb-2">
-          <p>🎧 Наушники X900</p>
-          <span class="text-sm text-gray-500">Статус: Доставлено</span>
-        </li>
-        <li class="border-b pb-2">
-          <p>⌨️ Клавиатура RGB Pro</p>
-          <span class="text-sm text-gray-500">Статус: В пути</span>
-        </li>
-      </ul>
+  <main>
+    <div class="section">
+      <h1>Добро пожаловать, <span id="username">Пользователь</span>!</h1>
+      <p class="balance">Ваш баланс: <span id="balance">0.00 ₽</span></p>
+      <button onclick="logout()">Выйти</button>
     </div>
   </main>
-
+  <footer>
+    © 2025 RayziShop. Все права защищены.
+  </footer>
+  <script>
+    function logout() {
+      localStorage.clear();
+      alert('Вы вышли из аккаунта.');
+      window.location.href = 'index.html';
+    }
+  </script>
 </body>
 </html>
