@@ -1,99 +1,136 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RayziShop — Главная</title>
-  <style>
-    /* общий стиль, как обсуждали */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RayziShop — Главная</title>
+<style>
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  body {
+    background: #121212;
+    color: #eee;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  header {
+    background: #1f1f1f;
+    padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+
+  .logo {
+    color: #4caf50;
+    font-weight: 900;
+    font-size: 28px;
+    text-decoration: none;
+  }
+
+  nav a {
+    color: #eee;
+    margin-left: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  nav a:hover {
+    color: #4caf50;
+  }
+
+  select.language {
+    background: #2a2a2a;
+    color: #eee;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
+  }
+
+  .content {
+    background: #222;
+    padding: 40px 60px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #4caf50cc;
+    max-width: 700px;
+    text-align: center;
+  }
+
+  h1 {
+    font-weight: 900;
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    color: #4caf50;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #ccc;
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px 10px;
+    background: #1f1f1f;
+    font-size: 14px;
+    color: #666;
+    box-shadow: inset 0 1px 0 #2a2a2a;
+  }
+</style>
+<script>
+  function changeLanguage(lang) {
+    const pages = {
+      'ru': 'index.html',
+      'uk': 'index_uk.html',
+      'en': 'index_en.html'
+    };
+    window.location.href = pages[lang];
+  }
+  function checkAuth() {
+    if (!localStorage.getItem('loggedIn')) {
+      alert('Пожалуйста, зарегистрируйтесь или войдите.');
+      window.location.href = 'register.html';
     }
-    body {
-      min-height: 100vh;
-      color: #2d3436;
-      background: linear-gradient(270deg, #74ebd5, #acb6e5, #f6d365, #fda085);
-      background-size: 800% 800%;
-      animation: waveAnim 30s ease infinite;
-    }
-    @keyframes waveAnim {
-      0% {background-position:0% 50%;}
-      50% {background-position:100% 50%;}
-      100% {background-position:0% 50%;}
-    }
-    header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 40px; background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 10;
-    }
-    .logo {
-      font-size: 28px; font-weight: bold; color: #6c5ce7; text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    .logo:hover { color: #341f97; }
-    nav a {
-      margin-left: 20px; color: #2d3436; text-decoration: none; font-weight: 500;
-      transition: color 0.2s ease;
-    }
-    nav a:hover { color: #00cec9; }
-    select.language {
-      margin-left: 20px; padding: 5px 10px; border-radius: 6px; border: 1px solid #dfe6e9;
-      background: white;
-    }
-    main {
-      padding: 80px 20px; text-align: center;
-    }
-    .section {
-      max-width: 900px; margin: 0 auto;
-      background: rgba(255,255,255,0.2); padding: 40px; border-radius: 16px;
-      backdrop-filter: blur(8px);
-    }
-    footer {
-      margin-top: 80px; text-align: center; padding: 20px;
-      font-size: 14px; color: #b2bec3;
-    }
-  </style>
-  <script>
-    function changeLanguage(lang) {
-      const pages = {
-        ru: 'index.html',
-        uk: 'index_uk.html',
-        en: 'index_en.html'
-      };
-      window.location.href = pages[lang];
-    }
-    function checkAuth() {
-      const loggedIn = localStorage.getItem('loggedIn');
-      if (!loggedIn) {
-        alert('Пожалуйста, сначала зарегистрируйтесь или войдите.');
-        window.location.href = 'register.html';
-      }
-    }
-  </script>
+  }
+</script>
 </head>
 <body>
-  <header>
-    <a href="index.html" class="logo">RayziShop</a>
-    <nav>
-      <a href="index.html">Главная</a>
-      <a href="home.html">Товары</a>
-      <a href="register.html">Регистрация</a>
-      <a href="#" onclick="checkAuth()">Профиль</a>
-    </nav>
-    <select class="language" onchange="changeLanguage(this.value)">
-      <option value="ru" selected>Русский</option>
-      <option value="uk">Українська</option>
-      <option value="en">English</option>
-    </select>
-  </header>
-  <main>
-    <div class="section">
-      <h1>Добро пожаловать в RayziShop</h1>
-      <p>Это главная страница вашего магазина.</p>
-    </div>
-  </main>
-  <footer>
-    © 2025 RayziShop. Все права защищены.
-  </footer>
+<header>
+  <a href="index.html" class="logo">RayziShop</a>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="home.html">Товары</a>
+    <a href="register.html">Регистрация</a>
+    <a href="#" onclick="checkAuth()">Профиль</a>
+  </nav>
+  <select class="language" onchange="changeLanguage(this.value)">
+    <option value="ru" selected>Русский</option>
+    <option value="uk">Українська</option>
+    <option value="en">English</option>
+  </select>
+</header>
+<main>
+  <div class="content">
+    <h1>Добро пожаловать в RayziShop</h1>
+    <p>Лучший магазин с удобным интерфейсом и удобной регистрацией.</p>
+  </div>
+</main>
+<footer>© 2025 RayziShop. Все права защищены.</footer>
 </body>
 </html>

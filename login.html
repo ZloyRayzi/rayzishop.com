@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RayziShop — Регистрация</title>
+<title>RayziShop — Вход</title>
 <style>
   * {
     margin: 0; padding: 0; box-sizing: border-box;
@@ -105,18 +105,18 @@
   button:hover {
     background: #388e3c;
   }
-  .have-account {
+  .no-account {
     margin-top: 18px;
     font-size: 0.9rem;
     color: #ccc;
     text-align: center;
   }
-  .have-account a {
+  .no-account a {
     color: #4caf50;
     text-decoration: none;
     font-weight: 700;
   }
-  .have-account a:hover {
+  .no-account a:hover {
     text-decoration: underline;
   }
   footer {
@@ -131,47 +131,39 @@
 <script>
   function changeLanguage(lang) {
     const pages = {
-      'ru': 'register.html',
-      'uk': 'register_uk.html',
-      'en': 'register_en.html'
+      'ru': 'login.html',
+      'uk': 'login_uk.html',
+      'en': 'login_en.html'
     };
     window.location.href = pages[lang];
   }
 
-  function registerUser(event) {
+  function loginUser(event) {
     event.preventDefault();
 
-    const username = document.getElementById('username').value.trim();
     const email = document.getElementById('email').value.trim().toLowerCase();
     const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
 
-    if (!username || !email || !password || !confirmPassword) {
+    if (!email || !password) {
       alert('Пожалуйста, заполните все поля.');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      alert('Пароли не совпадают.');
       return;
     }
 
     let users = JSON.parse(localStorage.getItem('users') || '[]');
 
-    if (users.find(u => u.email === email)) {
-      alert('Пользователь с таким email уже зарегистрирован.');
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (!user) {
+      alert('Неверный email или пароль.');
       return;
     }
 
-    users.push({ username, email, password });
-    localStorage.setItem('users', JSON.stringify(users));
-
     localStorage.setItem('loggedIn', 'true');
-    localStorage.setItem('username', username);
-    localStorage.setItem('email', email);
+    localStorage.setItem('username', user.username);
+    localStorage.setItem('email', user.email);
 
-    alert('Регистрация прошла успешно!');
-    window.location.href = 'index.html';
+    alert('Вы успешно вошли!');
+    window.location.href = 'dashboard.html';
   }
 </script>
 </head>
@@ -191,24 +183,16 @@
   </select>
 </header>
 <main>
-  <form onsubmit="registerUser(event)">
-    <h2>Регистрация</h2>
-    <label for="username">Имя пользователя</label>
-    <input id="username" type="text" placeholder="Введите имя" required />
+  <form onsubmit="loginUser(event)">
+    <h2>Вход</h2>
     <label for="email">Email</label>
     <input id="email" type="email" placeholder="Введите email" required />
     <label for="password">Пароль</label>
     <input id="password" type="password" placeholder="Введите пароль" required />
-    <label for="confirmPassword">Повторите пароль</label>
-    <input id="confirmPassword" type="password" placeholder="Повторите пароль" required />
-    <button type="submit">Зарегистрироваться</button>
-    <p class="have-account">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+    <button type="submit">Войти</button>
+    <p class="no-account">Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
   </form>
 </main>
 <footer>© 2025 RayziShop. Все права защищены.</footer>
 </body>
 </html>
-
-
-
-
