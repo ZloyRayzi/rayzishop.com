@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Регистрация | RayziShop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">RayziShop</h1>
+    <nav class="flex items-center space-x-4">
+      <a href="register.html" class="text-blue-600 hover:underline">Регистрация</a>
+      <a href="home.html" class="text-blue-600 hover:underline">Товары</a>
+      
+      <!-- Селектор языка -->
+      <div>
+        <select id="language-select" class="border rounded px-2 py-1 cursor-pointer">
+          <option value="ru" selected>Русский</option>
+          <option value="uk">Українська</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-grow flex items-center justify-center p-6">
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-6 text-center">Создать аккаунт в RayziShop</h2>
+      <form>
+        <input type="text" placeholder="Имя" class="w-full p-2 mb-4 border rounded" required />
+        <input type="email" placeholder="Email" class="w-full p-2 mb-4 border rounded" required />
+        <input type="password" placeholder="Пароль" class="w-full p-2 mb-4 border rounded" required />
+        <input type="password" placeholder="Подтвердите пароль" class="w-full p-2 mb-4 border rounded" required />
+        <button class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700">Зарегистрироваться</button>
+      </form>
+    </div>
+  </main>
+
+</body>
+</html>

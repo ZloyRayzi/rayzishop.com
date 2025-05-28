@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Личный кабинет | RayziShop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">RayziShop</h1>
+    <nav class="flex items-center space-x-4">
+      <a href="home.html" class="text-blue-600 hover:underline">Товары</a>
+      <a href="index.html" class="text-blue-600 hover:underline">Выход</a>
+      
+      <!-- Селектор языка -->
+      <div>
+        <select id="language-select" class="border rounded px-2 py-1 cursor-pointer">
+          <option value="ru" selected>Русский</option>
+          <option value="uk">Українська</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-4">Личный кабинет</h2>
+
+    <!-- Баланс -->
+    <div class="bg-white p-4 rounded shadow mb-6">
+      <h3 class="text-lg font-semibold mb-2">Ваш баланс</h3>
+      <p class="text-2xl text-green-600 font-bold">1 500₽</p>
+    </div>
+
+    <!-- Пример блока заказов -->
+    <div class="bg-white p-4 rounded shadow">
+      <h3 class="text-lg font-semibold mb-2">Ваши заказы</h3>
+      <ul class="space-y-2">
+        <li class="border-b pb-2">
+          <p>🎧 Наушники X900</p>
+          <span class="text-sm text-gray-500">Статус: Доставлено</span>
+        </li>
+        <li class="border-b pb-2">
+          <p>⌨️ Клавиатура RGB Pro</p>
+          <span class="text-sm text-gray-500">Статус: В пути</span>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+</body>
+</html>

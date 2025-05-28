@@ -1,0 +1,9 @@
+.toggle-link {
+  color: #ff4c60;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 15px;  /* увеличить отступ сверху */
+  margin-bottom: 10px;
+}
+
